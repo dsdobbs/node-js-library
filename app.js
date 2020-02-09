@@ -1,4 +1,4 @@
-const result = require('dotenv').config();
+require('dotenv').config();
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
@@ -13,13 +13,6 @@ var helmet = require('helmet');
 
 //Create the Express application object
 var app = express();
-
-//Throw error for dotenv config
-if (result.error) {
-  throw result.error
-}
- 
-console.log(result.parsed)
 
 //Set up mongoose connection if no dotenv error
 app.use(helmet());
