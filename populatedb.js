@@ -14,7 +14,7 @@ var async = require('async')
 var Book = require('./models/book')
 var Author = require('./models/author')
 var Genre = require('./models/genre')
-var BookInstance = require('./models/bookInstance')
+var BookInstance = require('./models/book_instance')
 
 
 var mongoose = require('mongoose');

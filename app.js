@@ -1,3 +1,4 @@
+const result = require('dotenv').config();
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
@@ -13,10 +14,17 @@ var helmet = require('helmet');
 //Create the Express application object
 var app = express();
 
-//Set up mongoose connection
+//Throw error for dotenv config
+if (result.error) {
+  throw result.error
+}
+ 
+console.log(result.parsed)
+
+//Set up mongoose connection if no dotenv error
 app.use(helmet());
 var mongoose = require('mongoose');
-var dev_db_url = 'mongodb+srv://ddobbs:1qazqwerty@cluster0-6kqur.mongodb.net/test?retryWrites=true&w=majority';
+var dev_db_url = 'mongodb+srv://guest:guest@cluster0-6kqur.mongodb.net/test?retryWrites=true&w=majority';
 var mongoDB = process.env.MONGODB_URI || dev_db_url;
 mongoose.connect(mongoDB, { useNewUrlParser: true });
 var db = mongoose.connection;
