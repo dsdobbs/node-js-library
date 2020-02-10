@@ -1,5 +1,4 @@
-const { body,validationResult } = require('express-validator/check');
-const { sanitizeBody } = require('express-validator/filter');
+const { body,validationResult } = require('express-validator');
 var async = require('async');
 var Book = require('../models/book');
 var BookInstance = require('../models/book_instance');
@@ -56,10 +55,10 @@ exports.bookinstance_create_post = [
     body('due_back', 'Invalid date').optional({ checkFalsy: true }).isISO8601(),
     
     // Sanitize fields.
-    sanitizeBody('book').escape(),
-    sanitizeBody('imprint').escape(),
-    sanitizeBody('status').trim().escape(),
-    sanitizeBody('due_back').toDate(),
+    body('book').escape(),
+    body('imprint').escape(),
+    body('status').trim().escape(),
+    body('due_back').toDate(),
     
     // Process request after validation and sanitization.
     (req, res, next) => {
@@ -169,10 +168,10 @@ exports.bookinstance_update_post = [
     body('status', 'Status must not be empty.').isLength({ min: 1 }).trim(),
 
     // Sanitize fields.
-    sanitizeBody('book').escape(),
-    sanitizeBody('imprint').escape(),
-    sanitizeBody('due_back').escape(),
-    sanitizeBody('status').escape(),
+    body('book').escape(),
+    body('imprint').escape(),
+    body('due_back').escape(),
+    body('status').escape(),
 
     // Process request after validation and sanitization.
     (req, res, next) => {

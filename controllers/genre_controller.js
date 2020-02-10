@@ -1,5 +1,4 @@
-const { body,validationResult } = require('express-validator/check');
-const { sanitizeBody } = require('express-validator/filter');
+const { body,validationResult } = require('express-validator');
 const validator = require('express-validator');
 var Book = require('../models/book');
 var async = require('async');
@@ -56,7 +55,7 @@ exports.genre_create_post =  [
     validator.body('name', 'Genre name required').isLength({ min: 1 }).trim(),
     
     // Sanitize (escape) the name field.
-    validator.sanitizeBody('name').escape(),
+    validator.body('name').escape(),
   
     // Process request after validation and sanitization.
     (req, res, next) => {
@@ -181,7 +180,7 @@ exports.genre_update_post = [
   body('name', 'Name must not be empty.').isLength({ min: 1 }).trim(),
 
   // Sanitize fields.
-  sanitizeBody('name').escape(),
+  body('name').escape(),
 
   // Process request after validation and sanitization.
   (req, res, next) => {

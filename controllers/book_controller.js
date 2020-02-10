@@ -1,5 +1,4 @@
-const { body,validationResult } = require('express-validator/check');
-const { sanitizeBody } = require('express-validator/filter');
+const { body,validationResult } = require('express-validator');
 var async = require('async');
 var Book = require('../models/book');
 var Author = require('../models/author');
@@ -26,7 +25,7 @@ exports.index = function(req, res) {
             Genre.countDocuments({}, callback);
         }
     }, function(err, results) {
-        res.render('index', { title: 'Local Library Home', error: err, data: results });
+        res.render('index', { title: 'Express Library', error: err, data: results });
     });
 };
 
@@ -110,7 +109,7 @@ exports.book_create_post = [
     body('isbn', 'ISBN must not be empty').isLength({ min: 1 }).trim(),
   
     // Sanitize fields (using wildcard).
-    sanitizeBody('*').escape(),
+    body('*').escape(),
 
     // Process request after validation and sanitization.
     (req, res, next) => {
@@ -268,11 +267,11 @@ exports.book_update_post = [
     body('isbn', 'ISBN must not be empty').isLength({ min: 1 }).trim(),
 
     // Sanitize fields.
-    sanitizeBody('title').escape(),
-    sanitizeBody('author').escape(),
-    sanitizeBody('summary').escape(),
-    sanitizeBody('isbn').escape(),
-    sanitizeBody('genre.*').escape(),
+    body('title').escape(),
+    body('author').escape(),
+    body('summary').escape(),
+    body('isbn').escape(),
+    body('genre.*').escape(),
 
     // Process request after validation and sanitization.
     (req, res, next) => {

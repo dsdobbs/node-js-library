@@ -1,5 +1,4 @@
-const { body,validationResult } = require('express-validator/check');
-const { sanitizeBody } = require('express-validator/filter');
+const { body,validationResult } = require('express-validator');
 var async = require('async');
 var Book = require('../models/book');
 var Author = require('../models/author');
@@ -58,10 +57,10 @@ exports.author_create_post = [
     body('date_of_death', 'Invalid date of death').optional({ checkFalsy: true }).isISO8601(),
 
     // Sanitize fields.
-    sanitizeBody('first_name').escape(),
-    sanitizeBody('family_name').escape(),
-    sanitizeBody('date_of_birth').toDate(),
-    sanitizeBody('date_of_death').toDate(),
+    body('first_name').escape(),
+    body('family_name').escape(),
+    body('date_of_birth').toDate(),
+    body('date_of_death').toDate(),
 
     // Process request after validation and sanitization.
     (req, res, next) => {
@@ -175,10 +174,10 @@ exports.author_update_post = [
     body('date_of_death', 'Date of death must not be empty').isLength({ min: 1 }).trim(),
 
     // Sanitize fields.
-    sanitizeBody('first_name').escape(),
-    sanitizeBody('family_name').escape(),
-    sanitizeBody('date_of_birth').escape(),
-    sanitizeBody('date_of_death').escape(),
+    body('first_name').escape(),
+    body('family_name').escape(),
+    body('date_of_birth').escape(),
+    body('date_of_death').escape(),
 
     // Process request after validation and sanitization.
     (req, res, next) => {
