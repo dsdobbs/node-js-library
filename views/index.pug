@@ -1,10 +1,12 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to my Express library. This is a basic website designed using Express, Bootstrap, and MongoDB.
 
-  h1 Record Count
+  h1(class=['display-1', 'text-primary'])
+    u= title
+  p Welcome to my library. This website was created using Express, Bootstrap, and MongoDB.
+
+  h1(class=['display-4']) Record Count
 
   if error
     p Error getting dynamic content.

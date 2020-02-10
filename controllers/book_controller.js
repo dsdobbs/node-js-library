@@ -25,7 +25,7 @@ exports.index = function(req, res) {
             Genre.countDocuments({}, callback);
         }
     }, function(err, results) {
-        res.render('index', { title: 'Express Library', error: err, data: results });
+        res.render('index', { title: 'NodeJS Library', error: err, data: results });
     });
 };
 
